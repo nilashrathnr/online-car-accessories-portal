@@ -90,8 +90,8 @@ INSERT INTO `protb` (`id`, `ProductName`, `ProductType`, `Price`, `Qty`, `Info`,
 (5, 'Sony Audio', 'Audio System', '700', '20', 'Audio System for car ', '6080.png'),
 (6, 'Sony base audio', 'Audio System', '3500', '40', 'Sony audio system with touch features.', '1141.png'),
 (7, 'Car Cover', 'Body Cover', '1000', '20', 'Body cover for maruti swift', '1212.png'),
-(8, 'foot mat', 'Colour Mats', '2000', '40', 'Foot mats with customized colors', '7936.png'),
-(9, 'Godrej Freshner', 'Freshner', '200', '50', 'Godrej freshner  for car available in various flavours.', '3219.png'),
+(8, 'foot mat', 'Colour Mats', '2000', '40', 'Foot mats with customized colors', '3219.png'),
+(9, 'Godrej Freshner', 'Freshner', '200', '50', 'Godrej freshner  for car available in various flavours.', '7936.png'),
 (10, 'tolo Seat cover', 'Seat Covers', '2080', '70', 'Seat covers at customizable colors', '8429.png'),
 (11, 'rise sun film', 'SunControl Film', '900', '45', 'Sun film from protection against the radiation.', '8387.png');
 
