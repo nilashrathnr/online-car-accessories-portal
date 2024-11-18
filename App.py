@@ -25,7 +25,7 @@ def DoctorLogin():
 
 @app.route("/NewEmployee")
 def NewEmployee():
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM employeetb ")
     data = cur.fetchall()
@@ -54,7 +54,7 @@ def NewProduct():
 
 @app.route("/AdminHome")
 def AdminHome():
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM regtb  ")
     data = cur.fetchall()
@@ -63,7 +63,7 @@ def AdminHome():
 
 @app.route("/ProductInfo")
 def AProductInfo():
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM protb  ")
     data = cur.fetchall()
@@ -73,9 +73,9 @@ def AProductInfo():
 @app.route("/adminlogin", methods=['GET', 'POST'])
 def adminlogin():
     if request.method == 'POST':
-        if request.form['uname'] == 'nilash' and request.form['password'] == 'rath':
+        if request.form['uname'] == 'admin' and request.form['password'] == 'admin123':
 
-            conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+            conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
             cur = conn.cursor()
             cur.execute("SELECT * FROM regtb ")
             data = cur.fetchall()
@@ -90,7 +90,7 @@ def adminlogin():
 @app.route("/ARemove")
 def ARemove():
     id = request.args.get('id')
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cursor = conn.cursor()
     cursor.execute(
         "delete from protb where id='" + id + "'")
@@ -99,7 +99,7 @@ def ARemove():
 
     flash('Product  info Remove Successfully!')
 
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM protb  ")
     data = cur.fetchall()
@@ -121,7 +121,7 @@ def newproduct():
         savename = str(fnew) + ".png"
         file.save("static/upload/" + savename)
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO  protb VALUES ('','" + pname + "','" + ptype + "','" + price + "','" + qty + "','" + info + "','" + savename + "')")
@@ -145,7 +145,7 @@ def newuser():
         uname = request.form['uname']
         password = request.form['password']
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO regtb VALUES ('" + name + "','" + email + "','" + mobile + "','" + address + "','" + uname + "','" + password + "')")
@@ -163,7 +163,7 @@ def userlogin():
         password = request.form['password']
         session['uname'] = request.form['uname']
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute("SELECT * from regtb where username='" + username + "' and Password='" + password + "'")
         data = cursor.fetchone()
@@ -173,7 +173,7 @@ def userlogin():
             return render_template('UserLogin.html')
         else:
 
-            conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+            conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
             cur = conn.cursor()
             cur.execute("SELECT * FROM regtb where username='" + username + "' and Password='" + password + "'")
             data = cur.fetchall()
@@ -184,7 +184,7 @@ def userlogin():
 
 @app.route("/Search")
 def Search():
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM protb ")
     data = cur.fetchall()
@@ -197,7 +197,7 @@ def search():
     if request.method == 'POST':
         ptype = request.form['ptype']
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cur = conn.cursor()
         cur.execute("SELECT * FROM protb where  ProductType ='" + ptype + "'")
         data = cur.fetchall()
@@ -209,7 +209,7 @@ def search():
 def UserHome():
     uname = session['uname']
 
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     # cursor = conn.cursor()
     cur = conn.cursor()
     cur.execute("SELECT * FROM  regtb where username='" + uname + "'  ")
@@ -222,7 +222,7 @@ def UserHome():
 def Add():
     id = request.args.get('id')
     session['pid'] = id
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM protb  where id='" + id + "' ")
     data = cur.fetchall()
@@ -239,7 +239,7 @@ def addcart():
         uname = session['uname']
         qty = request.form['qty']
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute("SELECT  *  FROM protb  where  id='" + pid + "'")
         data = cursor.fetchone()
@@ -263,14 +263,14 @@ def addcart():
 
             flash('Low  Product ')
 
-            conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+            conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
             cur = conn.cursor()
             cur.execute("SELECT * FROM protb  where id='" + pid + "' ")
             data = cur.fetchall()
             return render_template('AddCart.html', data=data)
 
         else:
-            conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+            conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
             cursor = conn.cursor()
             cursor.execute(
                 "INSERT INTO carttb VALUES ('','" + uname + "','" + ProductName + "','" + Producttype + "','" + str(
@@ -280,7 +280,7 @@ def addcart():
             conn.close()
 
             flash('Add To Cart  Successfully')
-            conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+            conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
             cur = conn.cursor()
             cur.execute("SELECT * FROM protb  where id='" + pid + "' ")
             data = cur.fetchall()
@@ -290,12 +290,12 @@ def addcart():
 @app.route("/Cart")
 def Cart():
     uname = session['uname']
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM  carttb where UserName='" + uname + "' and Status='0' ")
     data = cur.fetchall()
 
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cursor = conn.cursor()
     cursor.execute(
         "SELECT  sum(Qty) as qty ,sum(Tprice) as Tprice   FROM  carttb where UserName='" + uname + "' and Status='0' ")
@@ -312,7 +312,7 @@ def Cart():
 @app.route("/RemoveCart")
 def RemoveCart():
     id = request.args.get('id')
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cursor = conn.cursor()
     cursor.execute(
         "delete from carttb where id='" + id + "'")
@@ -322,12 +322,12 @@ def RemoveCart():
     flash('Product Remove Successfully!')
 
     uname = session['uname']
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM  carttb where UserName='" + uname + "' and Status='0' ")
     data = cur.fetchall()
 
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cursor = conn.cursor()
     cursor.execute(
         "SELECT  sum(Qty) as qty ,sum(Tprice) as Tprice   FROM  carttb where UserName='" + uname + "' and Status='0' ")
@@ -349,7 +349,7 @@ def payment():
         Cardno = request.form['cno']
         Cvno = request.form['cvno']
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute(
             "SELECT  sum(Qty) as qty ,sum(Tprice) as Tprice   FROM  carttb where UserName='" + uname + "' and Status='0' ")
@@ -358,7 +358,7 @@ def payment():
             tqty = data1[0]
             tprice = data1[1]
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute(
             "SELECT  count(*) As count  FROM booktb ")
@@ -377,14 +377,14 @@ def payment():
 
         bookno = 'BOOKID' + str(bookno)
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute(
             "update   carttb set status='1',Bookid='" + bookno + "' where UserName='" + uname + "' and Status='0' ")
         conn.commit()
         conn.close()
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO booktb VALUES ('','" + uname + "','" + bookno + "','" + str(tqty) + "','" + str(
@@ -392,12 +392,12 @@ def payment():
         conn.commit()
         conn.close()
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cur = conn.cursor()
         cur.execute("SELECT * FROM  carttb where UserName='" + uname + "' and Status='1' ")
         data1 = cur.fetchall()
 
-        conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+        conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
         cur = conn.cursor()
         cur.execute("SELECT * FROM  booktb where username='" + uname + "'")
         data2 = cur.fetchall()
@@ -409,51 +409,34 @@ def payment():
 def BookInfo():
     uname = session['uname']
 
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM  carttb where UserName='" + uname + "' and Status='1' ")
     data1 = cur.fetchall()
 
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
     cur = conn.cursor()
     cur.execute("SELECT * FROM  booktb where username='" + uname + "'")
     data2 = cur.fetchall()
 
     return render_template('UserBook.html', data1=data1, data2=data2)
 
-
 @app.route("/ASalesInfo")
 def ASalesInfo():
-    uname = session['uname']
-
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM  carttb where UserName='" + uname + "' and Status='1' ")
+    uname = session.get('uname') 
+    if not uname: 
+        return "User not logged in", 401   
+    conn = mysql.connector.connect(user='root', password='', host='localhost', database='car_database')
+    cur = conn.cursor() 
+    cur.execute("SELECT * FROM carttb WHERE UserName=%s AND Status='1'", (uname,))
     data1 = cur.fetchall()
-
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM  booktb where username='" + uname + "'")
+    cur.execute("SELECT * FROM booktb WHERE username=%s", (uname,))
     data2 = cur.fetchall()
-
+    conn.close()
+    if not data1 and not data2:
+        return render_template('ASalesInfo.html', message="No Transactions Made")
     return render_template('ASalesInfo.html', data1=data1, data2=data2)
 
-
-@app.route("/ESalesInfo")
-def ESalesInfo():
-    uname = session['uname']
-
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM  carttb where UserName='" + uname + "' and Status='1' ")
-    data1 = cur.fetchall()
-
-    conn = mysql.connector.connect(user='root', password='', host='localhost', database='1caraceespy')
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM  booktb where username='" + uname + "'")
-    data2 = cur.fetchall()
-
-    return render_template('ESalesInfo.html', data1=data1, data2=data2)
 
 
 if __name__ == '__main__':
